@@ -1,5 +1,7 @@
 "use client";
 
+import LoginButton from "@/components/LoginButton";
+
 export default function Home() {
   return (
     <main className="relative h-screen w-screen overflow-hidden bg-black text-white">
@@ -8,6 +10,7 @@ export default function Home() {
         <h1 className="text-8xl font-bold tracking-tighter text-white/20 backdrop-blur-sm mix-blend-overlay select-none">
           LOFI STATION
         </h1>
+        <LoginButton />
       </div>
     </main>
   );
