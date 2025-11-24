@@ -1,5 +1,6 @@
 "use client";
 
+import ClockCard from "@/components/ClockCard";
 import VideoBackground from "@/components/VideoBackground";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <main className="relative h-screen w-full overflow-hidden">
       <VideoBackground />
       
+      <ClockCard/>
     </main>
   );
 }
