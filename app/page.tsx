@@ -1,6 +1,7 @@
 "use client";
 
 import ClockCard from "@/components/ClockCard";
+import PomodoroTimer from "@/components/PomodoroTimer";
 import VideoBackground from "@/components/VideoBackground";
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
       <VideoBackground />
       
       <ClockCard/>
+      <PomodoroTimer/>
     </main>
   );
 }
