@@ -4,26 +4,29 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { Play, Pause, RotateCcw } from "lucide-react";
+import { Play, Pause, RotateCcw, Coffee, Target, Brain } from "lucide-react";
 
 export default function PomodoroTimer() {
-  // Timer settings
-  const FOCUS_TIME = 25 * 60; // 25 minutes in seconds
+  
+  const FOCUS_TIME = 25 * 60; 
+  const BREAK_TIME= 5 * 60;
 
   // State
   const [secondsLeft, setSecondsLeft] = useState(FOCUS_TIME);
   const [isRunning, setIsRunning] = useState(false);
+  const [mode, setMode] = useState<"focus" | "break">("focus");
 
-  // Ref to store interval
+  
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Format time for display
+  
   const minutes = Math.floor(secondsLeft / 60);
   const seconds = secondsLeft % 60;
   const displayTime = `${minutes}:${seconds.toString().padStart(2, "0")}`;
 
-  // Calculate progress percentage
-  const percentage = (secondsLeft / FOCUS_TIME) * 100;
+  // percentage
+  const totalTime =mode === "focus" ?FOCUS_TIME :BREAK_TIME;
+  const percentage = (secondsLeft / totalTime) * 100;
 
   function toggleTimer() {
     if (!isRunning) {
@@ -33,10 +36,17 @@ export default function PomodoroTimer() {
     setIsRunning(!isRunning);
   }
 
-  // Reset timer
   function resetTimer() {
     setIsRunning(false);
-    setSecondsLeft(FOCUS_TIME);
+    const totalTime= mode === "focus" ? FOCUS_TIME : BREAK_TIME;
+    setSecondsLeft(totalTime);
+  }
+
+  function switchMode(newMode: "focus" | "break") {
+    setMode(newMode);
+    setIsRunning(false);
+    const time = newMode === "focus" ? FOCUS_TIME :BREAK_TIME;
+    setSecondsLeft(time);
   }
 
   // Timer countdown logic
@@ -79,7 +89,7 @@ export default function PomodoroTimer() {
       dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
       className="
         fixed bottom-8 left-8
-        w-80
+        w-68
         bg-black/30 backdrop-blur-lg
         rounded-lg p-6
         cursor-grab
@@ -90,15 +100,34 @@ export default function PomodoroTimer() {
         border-white/10
       "
     >
-      <h3 className="text-center text-lg mb-4 font-extralight">Focus</h3>
+      <div className="flex gap-4 justify-center mb-4">
+  <button
+    onClick={() => switchMode("focus")}
+    className={`text-lg font-extralight flex items-center justify-center gap-1 ${
+      mode === "focus" ? "text-white underline" : "text-white/50"
+    }`}
+  >
+   <Brain/> Focus
+  </button>
+  <button
+    onClick={() => switchMode("break")}
+    className={`text-lg font-extralight flex gap-0.5 items-center justify-center ${
+      mode === "break" ? "text-white underline" : "text-white/50"
+    }`}
+  >
+    <Coffee className="h-5 w-6"/>Break
+  </button>
+</div>
       <div className="w-52 h-50 mx-auto mb-6">
         <CircularProgressbar
           value={percentage}
           text={displayTime}
+          strokeWidth={5}
           styles={buildStyles({
             pathColor: "#10b981",
             textColor: "#ffffff",
             trailColor: "rgba(255, 255, 255, 0.1)",
+            
           })}
         />
       </div>
@@ -106,29 +135,29 @@ export default function PomodoroTimer() {
         <button
           onClick={toggleTimer}
           className="
-            w-14 h-14 rounded-lg
-            bg-[#10b981]
+            px-6 py-5 rounded-2xl
+            bg-[#10b981]/80
             flex items-center justify-center
             cursor-pointer
           "
         >
           {isRunning ? (
-            <Pause className="w-5 h-5 text-white" />
+            <Pause strokeWidth={2.5} className="w-5 h-5 text-red-50" />
           ) : (
-            <Play className="w-5 h-5 text-white ml-1" />
+            <Play strokeWidth={2.5} className="w-5 h-5 text-red-50 ml-1" />
           )}
         </button>
 
         <button
           onClick={resetTimer}
           className="
-            w-14 h-14 rounded-lg
-            bg-white/20
+            px-6 py-5 rounded-2xl
+            bg-red-50/10
             flex items-center justify-center
            cursor-pointer
           "
         >
-          <RotateCcw className="w-5 h-5 text-white" />
+          <RotateCcw strokeWidth={2.5} className="w-5 h-5 text-red-50" />
         </button>
       </div>
     </motion.div>
