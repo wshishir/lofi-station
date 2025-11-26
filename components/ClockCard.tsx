@@ -31,7 +31,9 @@ export default function ClockCard() {
       whileDrag={{ scale: 1.05 }}
       style={{ touchAction: "none" }}
       className="p-8 w-72 rounded-lg bg-black/40 flex flex-col items-center justify-center backdrop-blur-md backdrop:fill-transparent active:cursor-grabbing
-      select-none"
+      select-none
+      cursor-grab
+      "
     >
       <div className="flex items-center justify-center">
         <span

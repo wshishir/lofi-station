@@ -25,8 +25,11 @@ export default function PomodoroTimer() {
   // Calculate progress percentage
   const percentage = (secondsLeft / FOCUS_TIME) * 100;
 
-  // Toggle play/pause
   function toggleTimer() {
+    if (!isRunning) {
+      const audio = new Audio("/timer-start.mp3");
+      audio.play();
+    }
     setIsRunning(!isRunning);
   }
 
@@ -68,10 +71,10 @@ export default function PomodoroTimer() {
       dragConstraints={{
         top: 0,
         left: 0,
-        right: window.innerWidth - 320, 
-        bottom: window.innerHeight - 400, 
+        right: window.innerWidth - 320,
+        bottom: window.innerHeight - 400,
       }}
-      dragElastic={0.2}
+      dragElastic={0.1}
       whileDrag={{ scale: 1.05 }}
       dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
       className="
@@ -87,15 +90,13 @@ export default function PomodoroTimer() {
         border-white/10
       "
     >
-      <h3 className="text-center text-lg mb-4 font-extralight">
-        Focus
-      </h3>
+      <h3 className="text-center text-lg mb-4 font-extralight">Focus</h3>
       <div className="w-52 h-50 mx-auto mb-6">
         <CircularProgressbar
           value={percentage}
           text={displayTime}
           styles={buildStyles({
-            pathColor: '#10b981',
+            pathColor: "#10b981",
             textColor: "#ffffff",
             trailColor: "rgba(255, 255, 255, 0.1)",
           })}
@@ -108,12 +109,13 @@ export default function PomodoroTimer() {
             w-14 h-14 rounded-lg
             bg-[#10b981]
             flex items-center justify-center
+            cursor-pointer
           "
         >
           {isRunning ? (
-            <Pause className="w-6 h-6 text-white" />
+            <Pause className="w-5 h-5 text-white" />
           ) : (
-            <Play className="w-6 h-6 text-white ml-1" />
+            <Play className="w-5 h-5 text-white ml-1" />
           )}
         </button>
 
@@ -121,7 +123,7 @@ export default function PomodoroTimer() {
           onClick={resetTimer}
           className="
             w-14 h-14 rounded-lg
-            bg-white/10 
+            bg-white/20
             flex items-center justify-center
            cursor-pointer
           "
