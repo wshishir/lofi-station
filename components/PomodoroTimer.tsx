@@ -137,15 +137,15 @@ export default function PomodoroTimer() {
             onClick={toggleTimer}
             className="
             px-7 py-5 rounded-2xl
-            bg-[#10b981]/80
+            bg-[#10b981]/75
             flex items-center justify-center
             cursor-pointer
           "
           >
             {isRunning ? (
-              <Pause strokeWidth={2.5} className="w-5 h-5 text-red-50" />
+              <Pause strokeWidth={3} className="w-5 h-5 text-red-50" />
             ) : (
-              <Play strokeWidth={2.5} className="w-5 h-5 text-red-50 ml-1" />
+              <Play strokeWidth={3} className="w-5 h-5 text-red-50 ml-1" />
             )}
           </button>
 

@@ -24,7 +24,7 @@ export default function FullscreenButton() {
           <button
             onClick={toggleFullscreen}
             className="
-              fixed top-3 right-3 z-50
+              fixed top-3 right-3 
               p-3.5 rounded-lg
               bg-black/20
               text-white
