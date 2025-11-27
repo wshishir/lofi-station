@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Music, X } from "lucide-react";
+import Spotify from "@/public/spotify.png";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function SpotifyPlayer() {
@@ -12,27 +14,25 @@ export default function SpotifyPlayer() {
     "https://open.spotify.com/embed/playlist/1X4m3caIi1cAXAC5gUO0Ny?utm_source=generator";
 
   return (
-    <div className="fixed bottom-8 right-8 z-50">
-      {/* Toggle Button */}
+    <div className="fixed bottom-5 right-8">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="
-          w-16 h-16 rounded-full
-          bg-black/60 backdrop-blur-md
-          border-2 border-white/20
+          w-16 h-16 rounded-xl
+          bg-black/30 backdrop-blur-md
           flex items-center justify-center
           shadow-2xl
-          hover:bg-black/70
-          transition-all
-          hover:scale-110
           active:scale-95
+          cursor-pointer
         "
       >
-        {isOpen ? (
-          <X className="w-8 h-8 text-white" />
-        ) : (
-          <Music className="w-8 h-8 text-white" />
-        )}
+        <Image
+          src={Spotify}
+          alt="Spotify"
+          width={30}
+          height={30}
+          className="object-contain"
+        />
       </button>
 
       {/* Spotify Player */}
@@ -61,11 +61,6 @@ export default function SpotifyPlayer() {
               loading="lazy"
               className="rounded-xl"
             />
-
-            {/* Optional: Playlist label */}
-            <p className="text-white/60 text-xs text-center mt-2">
-              Lofi Hip Hop Radio
-            </p>
           </motion.div>
         )}
       </AnimatePresence>

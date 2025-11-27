@@ -2,7 +2,9 @@
 
 import ClockCard from "@/components/ClockCard";
 import FullscreenButton from "@/components/FullscreenToggle";
+import MusicPlayer from "@/components/MusicPlayer";
 import PomodoroTimer from "@/components/PomodoroTimer";
+import SpotifyPlayer from "@/components/SpotifyPlayer";
 import VideoBackground from "@/components/VideoBackground";
 
 export default function Home() {
@@ -12,6 +14,8 @@ export default function Home() {
       <FullscreenButton />
       <ClockCard/>
       <PomodoroTimer/>
+      <SpotifyPlayer/>
+      <MusicPlayer/>
     </main>
   );
 }
