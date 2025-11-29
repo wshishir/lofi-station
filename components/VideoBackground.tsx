@@ -3,10 +3,11 @@
 import { useEffect, useRef } from "react";
 
 interface VideoBackgroundProps {
+  videoSrc: string;
   onLoaded?: () => void;
 }
 
-export default function VideoBackground({ onLoaded }: VideoBackgroundProps) {
+export default function VideoBackground({ videoSrc, onLoaded }: VideoBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -41,9 +42,10 @@ export default function VideoBackground({ onLoaded }: VideoBackgroundProps) {
         loop
         muted
         playsInline
+        key={videoSrc}
         className="absolute top-0 left-0 w-full h-full object-cover"
       >
-        <source src="/videos/lofi-bg.mp4" type="video/mp4" />
+        <source src={videoSrc} type="video/mp4" />
       </video>
 
       {/* Dark overlay */}
