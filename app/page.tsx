@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import ClockCard from "@/components/ClockCard";
 import FullscreenButton from "@/components/FullscreenToggle";
@@ -13,7 +13,15 @@ import Loader from "@/components/Loader";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
-  const [currentVideo, setCurrentVideo] = useState("/videos/lofi-bg.mp4");
+  const [currentVideo, setCurrentVideo] = useState("/videos/lofi-bg1.mp4");
+
+  // Load saved video from localStorage when component mounts
+  useEffect(() => {
+    const savedVideo = localStorage.getItem("selectedVideo");
+    if (savedVideo) {
+      setCurrentVideo(savedVideo);
+    }
+  }, []);
 
   const handleVideoLoaded = () => {
     setIsLoading(false);
@@ -22,6 +30,8 @@ export default function Home() {
   const handleVideoChange = (videoSrc: string) => {
     setIsLoading(true);
     setCurrentVideo(videoSrc);
+    // Save the selected video to localStorage
+    localStorage.setItem("selectedVideo", videoSrc);
   };
 
   return (

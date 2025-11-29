@@ -20,7 +20,6 @@ export default function VideoBackground({ videoSrc, onLoaded }: VideoBackgroundP
       return;
     }
 
-    // Handle the loadeddata event
     const handleLoaded = () => {
       onLoaded();
     };
