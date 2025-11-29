@@ -2,12 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Music, X } from "lucide-react";
 import Spotify from "@/public/spotify.png";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function SpotifyPlayer() {
-
   const [isOpen, setIsOpen] = useState(false);
 
   const spotifyUrl =
@@ -42,24 +40,19 @@ export default function SpotifyPlayer() {
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.2 }}
             className="
-              absolute bottom-20 right-0
-              bg-black/90 backdrop-blur-xl
-              border-2 border-white/20
-              rounded-2xl p-3
-              shadow-2xl
+              absolute bottom-20 right-5 p-3
             "
           >
-            {/* Spotify Embed */}
             <iframe
               src={spotifyUrl}
-              width="300"
-              height="380"
+              width="400"
+              height="500"
               frameBorder="0"
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               loading="lazy"
-              className="rounded-xl"
+              className="rounded-lg"
             />
           </motion.div>
         )}
