@@ -1,9 +1,42 @@
 "use client";
 
-export default function VideoBackground() {
+import { useEffect, useRef } from "react";
+
+interface VideoBackgroundProps {
+  onLoaded?: () => void;
+}
+
+export default function VideoBackground({ onLoaded }: VideoBackgroundProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !onLoaded) return;
+
+    // Check if video is already loaded (happens on refresh when cached)
+    if (video.readyState >= 3) {
+      onLoaded();
+      return;
+    }
+
+    // Handle the loadeddata event
+    const handleLoaded = () => {
+      onLoaded();
+    };
+
+    video.addEventListener("loadeddata", handleLoaded);
+    video.addEventListener("canplay", handleLoaded);
+
+    return () => {
+      video.removeEventListener("loadeddata", handleLoaded);
+      video.removeEventListener("canplay", handleLoaded);
+    };
+  }, [onLoaded]);
+
   return (
     <div className="fixed inset-0 -z-10 w-full h-full overflow-hidden">
       <video
+        ref={videoRef}
         autoPlay
         loop
         muted
