@@ -7,14 +7,16 @@ interface VideoBackgroundProps {
   onLoaded?: () => void;
 }
 
-export default function VideoBackground({ videoSrc, onLoaded }: VideoBackgroundProps) {
+export default function VideoBackground({
+  videoSrc,
+  onLoaded,
+}: VideoBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video || !onLoaded) return;
 
-    // Check if video is already loaded (happens on refresh when cached)
     if (video.readyState >= 3) {
       onLoaded();
       return;
@@ -47,8 +49,7 @@ export default function VideoBackground({ videoSrc, onLoaded }: VideoBackgroundP
         <source src={videoSrc} type="video/mp4" />
       </video>
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/20" />
+      <div className="absolute inset-0 bg-black/10" />
     </div>
   );
 }

@@ -6,7 +6,6 @@ import { Settings2 } from "lucide-react";
 
 interface Video {
   id: string;
-  name: string;
   src: string;
   thumbnail: string;
 }
@@ -14,19 +13,16 @@ interface Video {
 const videos: Video[] = [
   {
     id: "1",
-    name: "Lofi Scene 1",
     src: "/videos/lofi-bg.mp4",
     thumbnail: "/videos/lofi-bg.mp4",
   },
   {
     id: "2",
-    name: "Lofi Scene 2",
     src: "/videos/lofi-bg1.mp4",
     thumbnail: "/videos/lofi-bg1.mp4",
   },
   {
     id: "3",
-    name: "Lofi Scene 3",
     src: "/videos/lofi-bg2.mp4",
     thumbnail: "/videos/lofi-bg2.mp4",
   },
