@@ -17,7 +17,7 @@ export default function PomodoroTimer() {
   const FOCUS_TIME = 25 * 60;
   const BREAK_TIME = 5 * 60;
 
-  // State
+
   const [secondsLeft, setSecondsLeft] = useState(FOCUS_TIME);
   const [isRunning, setIsRunning] = useState(false);
   const [mode, setMode] = useState<"focus" | "break">("focus");
@@ -28,7 +28,6 @@ export default function PomodoroTimer() {
   const seconds = secondsLeft % 60;
   const displayTime = `${minutes}:${seconds.toString().padStart(2, "0")}`;
 
-  // percentage
   const totalTime = mode === "focus" ? FOCUS_TIME : BREAK_TIME;
   const percentage = (secondsLeft / totalTime) * 100;
 
@@ -55,15 +54,15 @@ export default function PomodoroTimer() {
 
   // Timer countdown logic
   useEffect(() => {
-    // If not running, don't do anything
     if (!isRunning) return;
 
-    // Start countdown
     intervalRef.current = setInterval(() => {
       setSecondsLeft((prev) => {
         // If time is up
         if (prev <= 1) {
           setIsRunning(false);
+          const audio = new Audio("/timer-start.mp3");
+          audio.play();
           return FOCUS_TIME; // Reset
         }
         // Subtract 1 second
@@ -71,13 +70,13 @@ export default function PomodoroTimer() {
       });
     }, 1000);
 
-    // Cleanup function - stop interval when component unmounts
+
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
     };
-  }, [isRunning]); // Only re-run when isRunning changes
+  }, [isRunning]); 
 
   return (
     <>

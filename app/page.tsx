@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import ClockCard from "@/components/ClockCard";
 import FullscreenButton from "@/components/FullscreenToggle";
@@ -10,18 +10,17 @@ import SpotifyPlayer from "@/components/SpotifyPlayer";
 import VideoBackground from "@/components/VideoBackground";
 import VideoSelector from "@/components/VideoSelector";
 import Loader from "@/components/Loader";
+import MobileWarning from "@/components/MobileWarning";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
-  const [currentVideo, setCurrentVideo] = useState("/videos/lofi-bg1.mp4");
-
-  // Load saved video from localStorage when component mounts
-  useEffect(() => {
-    const savedVideo = localStorage.getItem("selectedVideo");
-    if (savedVideo) {
-      setCurrentVideo(savedVideo);
+  // Initialize state with localStorage value
+  const [currentVideo, setCurrentVideo] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("selectedVideo") || "/videos/lofi-bg1.mp4";
     }
-  }, []);
+    return "/videos/lofi-bg1.mp4";
+  });
 
   const handleVideoLoaded = () => {
     setIsLoading(false);
@@ -36,6 +35,8 @@ export default function Home() {
 
   return (
     <main className="relative h-screen w-full overflow-hidden">
+      <MobileWarning />
+
       <AnimatePresence>
         {isLoading && <Loader />}
       </AnimatePresence>
