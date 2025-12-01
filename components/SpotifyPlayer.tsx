@@ -20,7 +20,6 @@ export default function SpotifyPlayer() {
           bg-black/30 backdrop-blur-md
           flex items-center justify-center
           shadow-2xl
-          active:scale-95
           cursor-pointer
         "
       >
